@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>メッセージボード</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+  <nav class="navbar navbar-default">
+    <div class="navbar">
+        <%= link_to "メッセージボード", root_path, class: "navbar-brand" %>
+      <ul class="navbar mr-left">
+          <li><%= link_to "登録", new_user_registration_path,class:"navbar-left" %></li>
+        <% if user_signed_in? %>
+          <li><%= link_to "サインアウト", destroy_user_session_path, method: :delete %></li>
+        <% else %>	
+          <li><%= link_to "ログイン", new_user_session_path %></li>
+        <% end %>
+      </ul>
+    </div>
+      <% if user_signed_in? %>
+        <p><%= link_to "新規メッセージ", new_message_path, class: "navbar-text navbar-link navbar-right btn btn-primary" %></p>
+      <% end %>
+  </nav>
+
+    
+
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
+    <div class="container-body">
+      <%= yield %>
+    </div>
+    
+  </body>
+</html>

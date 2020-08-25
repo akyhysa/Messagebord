@@ -1,0 +1,24 @@
+
+<div class="col-md-8 col-md-offset-2">
+  <div class="message-show">
+    <h2><%= @message.title %></h2>
+    <p class="message-posted-by">Posted by <%= @message.user.email %> <%= time_ago_in_words(@message.created_at) %></p>
+    <p class="message-desc"><%= simple_format(@message.description) %></p>
+
+    <h3>コメント:</h3>
+    <%= render @message.comments %>
+
+    <h3 class="reply-to-msg">メッセージの返信:</h3>
+    <%= render 'comments/form' %>
+
+    <div class="link btn-group">
+      <%= link_to "Back", root_path, class:"btn btn-primary  mt-4" %>
+      <% if user_signed_in? %>
+        <% if @message.user_id == current_user.id %>
+          <%= link_to "Edit", edit_message_path(@message), class: "btn btn-primary mt-4" %>
+          <%= link_to "Delete", message_path(@message), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger mt-4" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
